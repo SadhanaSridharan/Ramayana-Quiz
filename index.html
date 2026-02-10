@@ -1,0 +1,2146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0F766E">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Ramayana Complete Quiz</title>
+  <style>
+    /* ---------------- THEME 3: Peacock + Gold (Spiritual, Light) ---------------- */
+    :root{
+      --bg: #F0FFF7;           /* Pale Mint */
+      --bg2:#E9FFF3;
+      --card:#FFFFFF;          /* White cards */
+      --card2:#FBFFFD;
+      --line:#CDE8E2;          /* soft border */
+      --shadow: 0 18px 50px rgba(2, 44, 32, .10);
+      --shadow2: 0 10px 24px rgba(2, 44, 32, .10);
+
+      --primary:#0F766E;       /* Peacock Teal */
+      --primary2:#0B5F58;
+      --accent:#D4AF37;        /* Temple Gold */
+      --accent2:#B89424;
+      --blue:#1D4ED8;          /* Royal Blue */
+      --good:#15803D;
+      --bad:#B91C1C;
+
+      --text:#111827;          /* Charcoal */
+      --muted:#475569;
+      --muted2:#64748B;
+
+      --r: 22px;
+      --r2: 16px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(1100px 700px at 20% -15%, rgba(15,118,110,.14), transparent 60%),
+        radial-gradient(900px 650px at 120% 10%, rgba(212,175,55,.16), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color: var(--text);
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* Top App Bar */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      padding: 14px 14px 10px;
+      padding-top: calc(14px + env(safe-area-inset-top));
+      background: linear-gradient(to bottom, rgba(240,255,247,.92), rgba(240,255,247,.72), rgba(240,255,247,0));
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(205,232,226,.55);
+    }
+    .topRow{
+      max-width: 980px;
+      margin: 0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width:0;
+    }
+    .logo{
+      width: 40px; height: 40px;
+      border-radius: 16px;
+      display:grid;
+      place-items:center;
+      background: linear-gradient(135deg, rgba(15,118,110,.18), rgba(212,175,55,.20));
+      border: 1px solid rgba(205,232,226,.9);
+      box-shadow: var(--shadow2);
+      flex: 0 0 auto;
+    }
+    .brandText{ min-width:0; }
+    .title{
+      font-weight: 950;
+      letter-spacing: .2px;
+      font-size: 16px;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+    .subtitle{
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 3px;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .topActions{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    /* Pills & Buttons */
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.72);
+      color: var(--muted);
+      font-size: 12px;
+      user-select:none;
+      box-shadow: 0 6px 14px rgba(2,44,32,.05);
+    }
+
+    .btn{
+      border: 1px solid rgba(205,232,226,.95);
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.78));
+      color: var(--text);
+      padding: 12px 14px;
+      border-radius: 16px;
+      font-weight: 900;
+      letter-spacing: .1px;
+      cursor:pointer;
+      user-select:none;
+      box-shadow: 0 10px 0 rgba(2,44,32,.06), 0 18px 28px rgba(2,44,32,.08);
+      transition: transform .08s ease, box-shadow .18s ease, filter .2s ease, border-color .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 12px 0 rgba(2,44,32,.07), 0 22px 34px rgba(2,44,32,.10);
+      filter: brightness(1.02);
+    }
+    .btn:active{
+      transform: translateY(1px);
+      box-shadow: 0 6px 0 rgba(2,44,32,.06), 0 12px 18px rgba(2,44,32,.08);
+    }
+    .btn.small{ padding: 10px 12px; border-radius: 14px; font-weight: 950; }
+    .btn.primary{
+      border-color: rgba(15,118,110,.55);
+      background: linear-gradient(180deg, rgba(15,118,110,.12), rgba(255,255,255,.86));
+    }
+    .btn.gold{
+      border-color: rgba(212,175,55,.62);
+      background: linear-gradient(180deg, rgba(212,175,55,.22), rgba(255,255,255,.86));
+    }
+    .btn.danger{
+      border-color: rgba(185,28,28,.35);
+      background: linear-gradient(180deg, rgba(185,28,28,.10), rgba(255,255,255,.88));
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.70);
+    }
+    .btn:disabled{ opacity:.55; cursor:not-allowed; transform:none; }
+
+    .iconBtn{
+      width: 44px; height: 44px;
+      padding: 0;
+      border-radius: 16px;
+      display:grid;
+      place-items:center;
+    }
+    .icon{ width: 18px; height: 18px; }
+
+    /* Segmented Language */
+    .seg{
+      display:inline-flex;
+      border-radius: 999px;
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.72);
+      overflow:hidden;
+      box-shadow: 0 6px 14px rgba(2,44,32,.05);
+    }
+    .seg button{
+      border:0;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 12px;
+      font-weight: 950;
+      cursor:pointer;
+      font-size: 12px;
+    }
+    .seg button.active{
+      color: var(--text);
+      background: linear-gradient(180deg, rgba(212,175,55,.20), rgba(255,255,255,.86));
+    }
+
+    main{
+      flex: 1;
+      max-width: 980px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 14px;
+      padding-bottom: calc(16px + env(safe-area-inset-bottom));
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+
+    .card{
+      border-radius: var(--r);
+      border: 1px solid rgba(205,232,226,.95);
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .inner{ padding: 16px; }
+
+    .h{
+      font-size: 15px;
+      font-weight: 950;
+      letter-spacing: .15px;
+    }
+    .p{
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin-top: 6px;
+      font-weight: 800;
+    }
+    .divider{ height:1px; background: rgba(205,232,226,.95); margin: 14px 0; }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    @media (min-width: 780px){
+      .grid2{ grid-template-columns: 1.35fr .65fr; align-items:start; }
+    }
+
+    .chips{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; }
+    .chip{
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.76);
+      border-radius: 16px;
+      padding: 10px 12px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 850;
+      box-shadow: 0 6px 14px rgba(2,44,32,.05);
+    }
+    .chip strong{ color: var(--text); font-weight: 950; }
+
+    .toggle{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.76);
+      box-shadow: 0 6px 14px rgba(2,44,32,.05);
+      min-width: 260px;
+    }
+    .toggle label{
+      display:flex; align-items:center; gap: 10px;
+      font-weight: 950;
+      font-size: 13px;
+    }
+    .toggle input{ transform: scale(1.15); }
+
+    /* Chapter filter chips */
+    .filterRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 10px;
+    }
+    .fchip{
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.78);
+      border-radius: 999px;
+      padding: 10px 12px;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 950;
+      cursor:pointer;
+      user-select:none;
+      box-shadow: 0 10px 0 rgba(2,44,32,.06), 0 18px 28px rgba(2,44,32,.07);
+      transition: transform .08s ease, box-shadow .18s ease;
+    }
+    .fchip:hover{ transform: translateY(-2px); }
+    .fchip:active{ transform: translateY(1px); box-shadow: 0 6px 0 rgba(2,44,32,.06), 0 12px 18px rgba(2,44,32,.08); }
+    .fchip input{ transform: scale(1.15); }
+    .fchip.on{
+      border-color: rgba(15,118,110,.55);
+      background: linear-gradient(180deg, rgba(15,118,110,.12), rgba(255,255,255,.86));
+    }
+
+    /* Quiz */
+    .qTop{
+      display:flex;
+      justify-content:space-between;
+      gap: 12px;
+      align-items:flex-start;
+    }
+    .qMeta{
+      display:flex; gap: 8px; flex-wrap:wrap;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.76);
+      box-shadow: 0 6px 14px rgba(2,44,32,.05);
+    }
+    .tag.good{ border-color: rgba(21,128,61,.35); }
+    .tag.bad{ border-color: rgba(185,28,28,.30); }
+
+    .qText{
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: 950;
+      line-height: 1.35;
+      letter-spacing: .1px;
+    }
+
+    .options{
+      margin-top: 14px;
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+    .opt{
+      width:100%;
+      text-align:left;
+      border-radius: 18px;
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.78);
+      padding: 12px 12px;
+      cursor:pointer;
+      user-select:none;
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      box-shadow: 0 10px 0 rgba(2,44,32,.06), 0 18px 28px rgba(2,44,32,.07);
+      transition: transform .08s ease, box-shadow .18s ease, filter .2s ease, border-color .2s ease;
+    }
+    .opt:hover{ transform: translateY(-2px); filter: brightness(1.01); }
+    .opt:active{ transform: translateY(1px); box-shadow: 0 6px 0 rgba(2,44,32,.06), 0 12px 18px rgba(2,44,32,.08); }
+
+    .badge{
+      width: 32px; height: 32px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      font-weight: 950;
+      border: 1px solid rgba(205,232,226,.95);
+      background: linear-gradient(180deg, rgba(212,175,55,.18), rgba(255,255,255,.86));
+      flex: 0 0 auto;
+      margin-top: 1px;
+    }
+    .optText{ font-weight: 900; color: var(--text); flex:1; line-height: 1.35; font-size: 14.5px; }
+    .opt.dim{ opacity: .80; }
+    .opt.correct{
+      border-color: rgba(21,128,61,.45);
+      background: rgba(21,128,61,.10);
+    }
+    .opt.wrong{
+      border-color: rgba(185,28,28,.35);
+      background: rgba(185,28,28,.10);
+    }
+
+    .explain{
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 850;
+      min-height: 18px;
+    }
+
+    .foot{
+      margin-top: 14px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .nav{ display:flex; gap: 10px; flex-wrap:wrap; align-items:center; }
+
+    /* Progress */
+    .progressWrap{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+    .bar{
+      height: 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.72);
+      overflow:hidden;
+      width: min(420px, 52vw);
+      box-shadow: 0 6px 14px rgba(2,44,32,.05);
+    }
+    .fill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, rgba(15,118,110,.92), rgba(212,175,55,.88));
+    }
+    .ring{
+      width: 44px; height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(205,232,226,.95);
+      background: rgba(255,255,255,.76);
+      display:grid;
+      place-items:center;
+      position: relative;
+      overflow:hidden;
+      box-shadow: 0 6px 14px rgba(2,44,32,.05);
+    }
+    .ring svg{ position:absolute; inset:0; }
+    .ring .pct{
+      position: relative;
+      font-size: 11px;
+      font-weight: 950;
+      color: var(--text);
+    }
+
+    .hidden{ display:none !important; }
+
+    /* Modal */
+    .modalBg{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.35);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      z-index: 100;
+    }
+    .modal{
+      width: min(560px, 100%);
+      border-radius: 22px;
+      border: 1px solid rgba(205,232,226,.95);
+      background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.86));
+      box-shadow: 0 25px 80px rgba(0,0,0,.25);
+      overflow:hidden;
+    }
+    .modal .mInner{ padding: 16px; }
+    .modal .mTitle{ font-weight: 950; font-size: 15px; }
+    .modal .mText{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height:1.6; font-weight: 850; }
+    .modal .mBtns{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; justify-content:flex-end; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="topRow">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <!-- book icon -->
+          <svg class="icon" viewBox="0 0 24 24" fill="none">
+            <path d="M7 4h11a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H7a3 3 0 0 0-3 3V7a3 3 0 0 1 3-3Z" stroke="rgba(17,24,39,.95)" stroke-width="1.8"/>
+            <path d="M6 19V7" stroke="rgba(71,85,105,.85)" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <div class="brandText">
+          <div class="title" id="ui_title">Ramayana Complete Quiz</div>
+          <div class="subtitle" id="ui_subtitle">Offline • 50 questions • Save & resume</div>
+        </div>
+      </div>
+
+      <div class="topActions">
+        <div class="seg" role="tablist" aria-label="Language">
+          <button id="langEN" class="active" type="button">EN</button>
+          <button id="langTA" type="button">தமிழ்</button>
+        </div>
+
+        <button class="btn iconBtn ghost" id="btnHomeTop" title="Home">
+          <svg class="icon" viewBox="0 0 24 24" fill="none">
+            <path d="M4 11.5 12 4l8 7.5V20a1.8 1.8 0 0 1-1.8 1.8H5.8A1.8 1.8 0 0 1 4 20v-8.5Z" stroke="rgba(17,24,39,.92)" stroke-width="1.8"/>
+            <path d="M9.5 21.8v-6.4h5v6.4" stroke="rgba(71,85,105,.88)" stroke-width="1.8"/>
+          </svg>
+        </button>
+
+        <button class="btn iconBtn danger" id="btnExitTop" title="Exit">
+          <svg class="icon" viewBox="0 0 24 24" fill="none">
+            <path d="M10 7V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-1" stroke="rgba(17,24,39,.92)" stroke-width="1.8"/>
+            <path d="M3 12h11" stroke="rgba(17,24,39,.92)" stroke-width="1.8"/>
+            <path d="M6.5 8.5 3 12l3.5 3.5" stroke="rgba(17,24,39,.92)" stroke-width="1.8"/>
+          </svg>
+        </button>
+
+        <div class="pill" id="statusPill">Ready</div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SETUP -->
+    <section class="card" id="screenSetup">
+      <div class="inner">
+        <div class="grid2">
+          <div>
+            <div class="h" id="ui_setupTitle">Start a Quiz</div>
+            <div class="p" id="ui_setupDesc">
+              Choose how many questions you want. Your progress will auto-save on this device.
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="chips">
+              <div class="chip">
+                <span id="ui_questionsLabel">Questions</span>
+                <strong id="pickedCount">50</strong>
+              </div>
+              <div class="toggle">
+                <label>
+                  <input type="checkbox" id="shuffleToggle" checked />
+                  <span id="ui_shuffleLabel">Shuffle questions</span>
+                </label>
+              </div>
+              <div class="toggle" style="min-width: 260px;">
+                <label>
+                  <input type="checkbox" id="ttsAutoToggle" />
+                  <span id="ui_ttsAutoLabel">Auto Read (TTS)</span>
+                </label>
+              </div>
+              <div class="chip">
+                <span id="ui_speedLabel">TTS Speed</span>
+                <strong id="ttsSpeedLabel">1.0×</strong>
+              </div>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn small ghost" data-count="5" type="button">5</button>
+              <button class="btn small ghost" data-count="10" type="button">10</button>
+              <button class="btn small ghost" data-count="15" type="button">15</button>
+              <button class="btn small primary" data-count="50" type="button">50</button>
+            </div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn small gold" id="btnSpeedDown" type="button">- Speed</button>
+              <button class="btn small gold" id="btnSpeedUp" type="button">+ Speed</button>
+              <button class="btn small ghost" id="btnTTSStop" type="button">Stop Voice</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="h" id="ui_filterTitle">Chapter Filter</div>
+            <div class="p" id="ui_filterDesc">Choose which Kandas to include.</div>
+
+            <div class="filterRow" id="filterRow"></div>
+
+            <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn small primary" id="btnSelectAll" type="button">Select All</button>
+              <button class="btn small ghost" id="btnSelectNone" type="button">Select None</button>
+            </div>
+
+            <div class="divider"></div>
+
+            <button class="btn primary" id="btnStart" style="width:100%;" type="button">
+              <span id="ui_startBtn">Start Quiz</span>
+            </button>
+
+            <button class="btn ghost hidden" id="btnContinue" style="width:100%; margin-top:10px;" type="button">
+              <span id="ui_continueBtn">Continue Saved Quiz</span>
+            </button>
+
+            <button class="btn danger hidden" id="btnDiscard" style="width:100%; margin-top:10px;" type="button">
+              <span id="ui_discardBtn">Discard Saved Quiz</span>
+            </button>
+
+            <div class="p" id="setupNote" style="margin-top:10px;"></div>
+          </div>
+
+          <div>
+            <div class="h" id="ui_tipTitle">Tips</div>
+            <div class="p" id="ui_tipText">
+              Tap one option. First attempt counts for score. You can review everything at the end.
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="chip" style="justify-content:space-between;">
+              <span id="ui_bankLabel">Question bank</span>
+              <strong id="bankCount">50</strong>
+            </div>
+
+            <div class="chip" style="justify-content:space-between; margin-top:10px;">
+              <span id="ui_storageLabel">Auto-save</span>
+              <strong id="storageState">On</strong>
+            </div>
+
+            <div class="chip" style="justify-content:space-between; margin-top:10px;">
+              <span id="ui_selectedTopicsLabel">Selected chapters</span>
+              <strong id="selectedTopicsCount">All</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section class="card hidden" id="screenQuiz">
+      <div class="inner">
+        <div class="qTop">
+          <div>
+            <div class="qMeta" id="qMeta"></div>
+            <div class="qText" id="qText"></div>
+          </div>
+
+          <div style="text-align:right; display:flex; flex-direction:column; gap:10px; align-items:flex-end;">
+            <div class="pill" id="scorePill">Score: 0</div>
+
+            <div class="nav" style="justify-content:flex-end;">
+              <button class="btn small gold" id="btnListen" type="button">Listen</button>
+              <button class="btn small ghost" id="btnStop" type="button">Stop</button>
+            </div>
+
+            <div class="progressWrap">
+              <div class="ring" aria-label="Progress">
+                <svg viewBox="0 0 42 42">
+                  <circle cx="21" cy="21" r="17" stroke="rgba(15,118,110,.18)" stroke-width="4" fill="none"/>
+                  <circle id="ringStroke" cx="21" cy="21" r="17"
+                          stroke="rgba(15,118,110,.92)" stroke-width="4" fill="none"
+                          stroke-linecap="round"
+                          stroke-dasharray="106.8"
+                          stroke-dashoffset="106.8"/>
+                </svg>
+                <div class="pct" id="pctText">0%</div>
+              </div>
+              <div class="bar">
+                <div class="fill" id="progressFill"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="options" id="options"></div>
+        <div class="explain" id="explainBox"></div>
+
+        <div class="foot">
+          <div class="nav">
+            <button class="btn small ghost" id="btnBack" type="button"><span id="ui_backBtn">Back</span></button>
+            <button class="btn small primary" id="btnNext" type="button"><span id="ui_nextBtn">Next</span></button>
+          </div>
+          <div class="nav">
+            <button class="btn small danger" id="btnExit" type="button"><span id="ui_exitBtn">Exit</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RESULTS -->
+    <section class="card hidden" id="screenResults">
+      <div class="inner">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div>
+            <div class="h" id="ui_resultsTitle">Results</div>
+            <div class="p" id="resultSub"></div>
+          </div>
+          <div class="pill" id="resultScorePill">Score: 0</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn gold" id="btnReview" type="button"><span id="ui_reviewBtn">Review Answers</span></button>
+          <button class="btn ghost" id="btnRestart" type="button"><span id="ui_restartBtn">Start New Quiz</span></button>
+        </div>
+
+        <div id="reviewWrap" class="hidden" style="margin-top:12px;"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modalBg" id="modalBg" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="mInner">
+        <div class="mTitle" id="modalTitle">Exit</div>
+        <div class="mText" id="modalText">Your progress is saved. You can continue later.</div>
+        <div class="mBtns">
+          <button class="btn ghost" id="modalCancel" type="button">Cancel</button>
+          <button class="btn danger" id="modalOk" type="button">Exit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* ----------------------- i18n UI ----------------------- */
+const UI = {
+  en: {
+    title: "Ramayana Complete Quiz",
+    subtitle: "Offline • 50 questions • Save & resume",
+    setupTitle: "Start a Quiz",
+    setupDesc: "Choose how many questions you want. Your progress will auto-save on this device.",
+    questionsLabel: "Questions",
+    shuffleLabel: "Shuffle questions",
+    ttsAutoLabel: "Auto Read (TTS)",
+    speedLabel: "TTS Speed",
+    startBtn: "Start Quiz",
+    continueBtn: "Continue Saved Quiz",
+    discardBtn: "Discard Saved Quiz",
+    tipTitle: "Tips",
+    tipText: "Tap one option. First attempt counts for score. You can review everything at the end.",
+    bankLabel: "Question bank",
+    storageLabel: "Auto-save",
+    selectedTopicsLabel: "Selected chapters",
+    filterTitle: "Chapter Filter",
+    filterDesc: "Choose which Kandas to include.",
+    selectAll: "Select All",
+    selectNone: "Select None",
+    backBtn: "Back",
+    nextBtn: "Next",
+    finishBtn: "Finish",
+    exitBtn: "Exit",
+    resultsTitle: "Results",
+    reviewBtn: "Review Answers",
+    restartBtn: "Start New Quiz",
+    savedFound: "Saved quiz found. You can continue or discard it.",
+    noneSaved: "No saved quiz found.",
+    paused: "Quiz paused. You can continue anytime.",
+    selected: (n)=>`Selected ${n} questions.`,
+    score: (s)=>`Score: ${s}`,
+    resultsLine: (answered, correct, wrong)=>`Answered: ${answered} • Correct: ${correct} • Wrong: ${wrong}`,
+    exitTitle: "Exit quiz?",
+    exitText: "Your progress is saved. You can continue later.",
+    notEnough: (need, have)=>`Only ${have} questions available with your filter (requested ${need}). Using ${have}.`,
+    ttsUnavailable: "Text-to-speech not available on this device/browser.",
+    listen: "Listen",
+    stop: "Stop",
+  },
+  ta: {
+    title: "ராமாயண முழு வினாடி வினா",
+    subtitle: "ஆஃப்லைன் • 50 கேள்விகள் • சேமித்து மீண்டும் தொடரலாம்",
+    setupTitle: "வினாடி வினாவை தொடங்கவும்",
+    setupDesc: "எத்தனை கேள்விகள் வேண்டுமோ தேர்வு செய்யுங்கள். உங்கள் முன்னேற்றம் தானாக சேமிக்கப்படும்.",
+    questionsLabel: "கேள்விகள்",
+    shuffleLabel: "கேள்விகளை கலக்கு",
+    ttsAutoLabel: "தானாக வாசி (TTS)",
+    speedLabel: "TTS வேகம்",
+    startBtn: "தொடங்கு",
+    continueBtn: "சேமித்ததை தொடரவும்",
+    discardBtn: "சேமித்ததை நீக்கு",
+    tipTitle: "குறிப்புகள்",
+    tipText: "ஒரு பதிலைத் தேர்ந்தெடுக்கவும். முதல் முயற்சியே மதிப்பெண்ணில் சேரும். முடிவில் அனைத்தையும் பார்வையிடலாம்.",
+    bankLabel: "கேள்வித் தொகுப்பு",
+    storageLabel: "தானியங்கி சேமிப்பு",
+    selectedTopicsLabel: "தேர்ந்த அத்தியாயங்கள்",
+    filterTitle: "அத்தியாயத் தேர்வு",
+    filterDesc: "எந்த காண்டங்களை சேர்ப்பது என்பதை தேர்வு செய்யுங்கள்.",
+    selectAll: "அனைத்தையும் தேர்வு",
+    selectNone: "எதையும் இல்லை",
+    backBtn: "முந்தை",
+    nextBtn: "அடுத்தது",
+    finishBtn: "முடி",
+    exitBtn: "வெளியேறு",
+    resultsTitle: "முடிவு",
+    reviewBtn: "பதில்களை பார்வையிடு",
+    restartBtn: "புதியதாக தொடங்கு",
+    savedFound: "சேமித்த வினாடி வினா உள்ளது. தொடரவும் அல்லது நீக்கவும்.",
+    noneSaved: "சேமித்த வினாடி வினா இல்லை.",
+    paused: "இடைநிறுத்தப்பட்டது. எப்போது வேண்டுமானாலும் தொடரலாம்.",
+    selected: (n)=>`தேர்வு: ${n} கேள்விகள்.`,
+    score: (s)=>`மதிப்பெண்: ${s}`,
+    resultsLine: (answered, correct, wrong)=>`பதிலளித்தது: ${answered} • சரி: ${correct} • தவறு: ${wrong}`,
+    exitTitle: "வெளியேற வேண்டுமா?",
+    exitText: "உங்கள் முன்னேற்றம் சேமிக்கப்பட்டுள்ளது. பின்னர் தொடரலாம்.",
+    notEnough: (need, have)=>`உங்கள் தேர்வில் ${have} கேள்விகள் மட்டுமே உள்ளது (நீங்கள் கேட்டது ${need}). ${have} கேள்விகளே பயன்படுத்தப்படும்.`,
+    ttsUnavailable: "இந்த சாதனம்/பிரௌஸரில் Text-to-speech கிடைக்கவில்லை.",
+    listen: "கேள்",
+    stop: "நிறுத்து",
+  }
+};
+
+let lang = localStorage.getItem("ramayana_lang") || "en";
+
+/* ----------------------- TOPICS ----------------------- */
+const TOPICS = [
+  {key:"Bala Kanda", en:"Bala Kanda", ta:"பால காண்டம்"},
+  {key:"Ayodhya Kanda", en:"Ayodhya Kanda", ta:"அயோத்தியா காண்டம்"},
+  {key:"Aranya Kanda", en:"Aranya Kanda", ta:"அரண்ய காண்டம்"},
+  {key:"Kishkindha Kanda", en:"Kishkindha Kanda", ta:"கிஷ்கிந்தா காண்டம்"},
+  {key:"Sundara Kanda", en:"Sundara Kanda", ta:"சுந்தர காண்டம்"},
+  {key:"Yuddha Kanda", en:"Yuddha Kanda", ta:"யுத்த காண்டம்"},
+  {key:"Uttara Kanda", en:"Uttara Kanda", ta:"உத்தர காண்டம்"},
+  {key:"General", en:"General", ta:"பொது"}
+];
+
+/* ----------------------- DATA (FULL BILINGUAL 50) -----------------------
+   Each question has English + Tamil. Options + Explanation bilingual too. */
+const BANK = [
+  {id:1, topic:"Bala Kanda",
+    question:"Who is the author traditionally credited with composing the Ramayana?",
+    taQuestion:"ராமாயணத்தை இயற்றியதாக பாரம்பரியமாக யாரை குறிப்பிடுகின்றனர்?",
+    A:"Vyasa", taA:"வியாசர்",
+    B:"Valmiki", taB:"வால்மீகி",
+    C:"Tulsidas", taC:"துளசீதாசர்",
+    D:"Kalidasa", taD:"காளிதாசர்",
+    correct:"B",
+    explanation:"Valmiki is traditionally regarded as the Adi Kavi and author of the Ramayana.",
+    taExplanation:"வால்மீகி ‘ஆதி கவிஞர்’ என்றும் ராமாயணத்தின் ஆசிரியர் என்றும் பாரம்பரியமாக கருதப்படுகிறார்."
+  },
+  {id:2, topic:"Bala Kanda",
+    question:"What is the name of Rama’s father?",
+    taQuestion:"ராமரின் தந்தையின் பெயர் என்ன?",
+    A:"Dasharatha", taA:"தசரதன்",
+    B:"Janaka", taB:"ஜனகர்",
+    C:"Kaushika", taC:"கௌசிகர்",
+    D:"Harishchandra", taD:"ஹரிச்சந்திரன்",
+    correct:"A",
+    explanation:"Dasharatha is the king of Ayodhya and father of Rama.",
+    taExplanation:"அயோத்தியின் அரசன் தசரதன் ராமரின் தந்தை."
+  },
+  {id:3, topic:"Bala Kanda",
+    question:"Who is Rama’s mother?",
+    taQuestion:"ராமரின் தாயார் யார்?",
+    A:"Sumitra", taA:"சுமித்ரை",
+    B:"Kaikeyi", taB:"கைகேயி",
+    C:"Kausalya", taC:"கௌசல்யை",
+    D:"Mandodari", taD:"மண்டோதரி",
+    correct:"C",
+    explanation:"Kausalya is Rama’s mother.",
+    taExplanation:"கௌசல்யை ராமரின் தாய்."
+  },
+  {id:4, topic:"Bala Kanda",
+    question:"Which sage takes Rama and Lakshmana to protect his yajna?",
+    taQuestion:"யாகத்தை பாதுகாக்க ராமர் மற்றும் லக்ஷ்மணரை அழைத்துச் சென்ற முனிவர் யார்?",
+    A:"Vashistha", taA:"வசிஷ்டர்",
+    B:"Visvamitra", taB:"விஸ்வாமித்ரர்",
+    C:"Atri", taC:"அத்திரி",
+    D:"Agastya", taD:"அகஸ்தியர்",
+    correct:"B",
+    explanation:"Visvamitra seeks their help against demons disrupting rituals.",
+    taExplanation:"யாகத்தை கெடுக்க வந்த அரக்கர்களை எதிர்க்க விஸ்வாமித்ரர் உதவி கேட்டார்."
+  },
+  {id:5, topic:"Bala Kanda",
+    question:"Which demoness is defeated when she tries to disrupt Visvamitra’s yajna?",
+    taQuestion:"விஸ்வாமித்ரரின் யாகத்தை கெடுக்க முயன்ற பெண் அரக்கி யார் (ராமரால் தோற்கடிக்கப்பட்டாள்)?",
+    A:"Tataka", taA:"தாடகை",
+    B:"Surpanakha", taB:"சூர்ப்பணகை",
+    C:"Trijata", taC:"திரிஜடா",
+    D:"Simhika", taD:"சிம்ஹிகா",
+    correct:"A",
+    explanation:"Tataka is slain by Rama in the forest.",
+    taExplanation:"தாடகை வனத்தில் ராமரால் அழிக்கப்பட்டாள்."
+  },
+  {id:6, topic:"Bala Kanda",
+    question:"What are the two divine mantras Visvamitra teaches Rama early on?",
+    taQuestion:"விஸ்வாமித்ரர் ஆரம்பத்தில் ராமருக்கு கற்றுத்தந்த இரண்டு தெய்வ மந்திரங்கள் எவை?",
+    A:"Gayatri & Savitri", taA:"காயத்ரி & சாவித்ரி",
+    B:"Bala & Atibala", taB:"பல & அதிபல",
+    C:"Narayana & Rudra", taC:"நாராயண & ருத்ர",
+    D:"Agni & Varuna", taD:"அக்னி & வருண",
+    correct:"B",
+    explanation:"Bala and Atibala grant strength and protection from fatigue/sleep.",
+    taExplanation:"பல மற்றும் அதிபல மந்திரங்கள் பலம், சோர்வு/தூக்கம் வராமை போன்ற உதவிகளை தரும்."
+  },
+  {id:7, topic:"Bala Kanda",
+    question:"At whose court does Rama break the great bow to win Sita’s hand?",
+    taQuestion:"சீதையை மணப்பதற்காக ராமர் பெரும் வில்லை உடைத்தது யாருடைய அரண்மனையில்?",
+    A:"Dasharatha’s", taA:"தசரதனின்",
+    B:"Janaka’s", taB:"ஜனகரின்",
+    C:"Vali’s", taC:"வாலியின்",
+    D:"Sugriva’s", taD:"சுக்ரீவனின்",
+    correct:"B",
+    explanation:"Sita’s swayamvara is held in Mithila at King Janaka’s court.",
+    taExplanation:"சீதையின் சுயம்வரம் மிதிலையில், ஜனகரின் அரண்மனையில் நடைபெற்றது."
+  },
+  {id:8, topic:"Bala Kanda",
+    question:"What is the name commonly given to the bow Rama breaks?",
+    taQuestion:"ராமர் உடைத்த வில்லின் பெயராக பொதுவாக கூறப்படுவது எது?",
+    A:"Gandiva", taA:"காண்டீவம்",
+    B:"Pinaka", taB:"பினாகம்",
+    C:"Sharanga", taC:"ஷாரங்கம்",
+    D:"Vijaya", taD:"விஜயா",
+    correct:"B",
+    explanation:"The bow is commonly identified as Shiva’s bow, Pinaka.",
+    taExplanation:"அது சிவனின் வில் ‘பினாகம்’ என பொதுவாக குறிப்பிடப்படுகிறது."
+  },
+  {id:9, topic:"Bala Kanda",
+    question:"Who confronts Rama after the bow is broken?",
+    taQuestion:"வில் உடைந்த பிறகு ராமரை எதிர்த்து வந்தவர் யார்?",
+    A:"Parasurama", taA:"பரசுராமர்",
+    B:"Indrajit", taB:"இந்திரஜித்",
+    C:"Vibhishana", taC:"விபீஷணன்",
+    D:"Maricha", taD:"மாரீசன்",
+    correct:"A",
+    explanation:"Parasurama challenges Rama and is pacified by Rama’s valor.",
+    taExplanation:"பரசுராமர் சவால் விட, ராமரின் வீரத்தால் அவர் சமாதானமானார்."
+  },
+
+  {id:10, topic:"Ayodhya Kanda",
+    question:"What is the name of Rama’s wife?",
+    taQuestion:"ராமரின் மனைவி யார்?",
+    A:"Urmila", taA:"உர்மிளை",
+    B:"Sita", taB:"சீதை",
+    C:"Tara", taC:"தாரை",
+    D:"Renuka", taD:"ரேணுகா",
+    correct:"B",
+    explanation:"Sita is Rama’s consort.",
+    taExplanation:"சீதை ராமரின் துணைவி."
+  },
+  {id:11, topic:"Ayodhya Kanda",
+    question:"Which brother accompanies Rama to the forest?",
+    taQuestion:"ராமருடன் காட்டிற்கு சென்ற சகோதரர் யார்?",
+    A:"Bharata", taA:"பரதன்",
+    B:"Shatrughna", taB:"சத்ருக்னன்",
+    C:"Lakshmana", taC:"லக்ஷ்மணன்",
+    D:"Hanuman", taD:"ஹனுமான்",
+    correct:"C",
+    explanation:"Lakshmana chooses to accompany Rama and Sita.",
+    taExplanation:"லக்ஷ்மணன் ராமர், சீதை உடன் காட்டிற்கு செல்ல முடிவு செய்தார்."
+  },
+  {id:12, topic:"Ayodhya Kanda",
+    question:"Which queen demands two boons leading to Rama’s exile?",
+    taQuestion:"ராமர் வனவாசத்திற்கு காரணமான இரண்டு வரங்களை கேட்ட ராணி யார்?",
+    A:"Kausalya", taA:"கௌசல்யை",
+    B:"Sumitra", taB:"சுமித்ரை",
+    C:"Kaikeyi", taC:"கைகேயி",
+    D:"Mandodari", taD:"மண்டோதரி",
+    correct:"C",
+    explanation:"Kaikeyi demands Bharata’s coronation and Rama’s 14-year exile.",
+    taExplanation:"கைகேயி பரதனுக்கு பட்டாபிஷேகம், ராமருக்கு 14 ஆண்டுகள் வனவாசம் என்று இரண்டு வரங்களை கேட்டாள்."
+  },
+  {id:13, topic:"Ayodhya Kanda",
+    question:"How many years is Rama exiled?",
+    taQuestion:"ராமர் எத்தனை ஆண்டுகள் வனவாசம் சென்றார்?",
+    A:"10", taA:"10",
+    B:"12", taB:"12",
+    C:"14", taC:"14",
+    D:"16", taD:"16",
+    correct:"C",
+    explanation:"Rama accepts a 14-year exile.",
+    taExplanation:"ராமர் 14 ஆண்டுகள் வனவாசத்தை ஏற்றுக் கொண்டார்."
+  },
+  {id:14, topic:"Ayodhya Kanda",
+    question:"Who is named to be crowned in Rama’s place?",
+    taQuestion:"ராமருக்கு பதிலாக யாருக்கு பட்டாபிஷேகம் செய்ய வேண்டும் என்று கூறப்பட்டது?",
+    A:"Rama", taA:"ராமர்",
+    B:"Bharata", taB:"பரதன்",
+    C:"Lakshmana", taC:"லக்ஷ்மணன்",
+    D:"Shatrughna", taD:"சத்ருக்னன்",
+    correct:"B",
+    explanation:"Kaikeyi seeks Bharata’s coronation, though Bharata refuses the throne in spirit.",
+    taExplanation:"கைகேயி பரதனுக்கு பட்டாபிஷேகம் வேண்டுமென்றாள்; ஆனால் பரதன் மனதார அரியணையை ஏற்கவில்லை."
+  },
+  {id:15, topic:"Ayodhya Kanda",
+    question:"What does Bharata place on the throne to represent Rama’s rule?",
+    taQuestion:"ராமரின் ஆட்சியை குறிக்க பரதன் அரியணையில் வைத்தது என்ன?",
+    A:"Rama’s crown", taA:"ராமரின் கிரீடம்",
+    B:"Sita’s jewelry", taB:"சீதையின் நகைகள்",
+    C:"Rama’s sandals", taC:"ராமரின் பாதுக்கைகள்",
+    D:"A golden bow", taD:"தங்க வில்",
+    correct:"C",
+    explanation:"Bharata places Rama’s sandals (padukas) to symbolize Rama’s rule.",
+    taExplanation:"ராமரின் பாதுக்கைகளை வைத்து ராமரின் ஆட்சியை குறித்தார்."
+  },
+  {id:16, topic:"Ayodhya Kanda",
+    question:"Who is the charioteer who takes Rama toward the forest from Ayodhya?",
+    taQuestion:"அயோத்தியிலிருந்து ராமரை காட்டின் பாதை நோக்கி அழைத்துச் சென்ற தேரோட்டியார் யார்?",
+    A:"Sumantra", taA:"சுமந்திரன்",
+    B:"Jatayu", taB:"ஜடாயு",
+    C:"Guha", taC:"குஹன்",
+    D:"Vali", taD:"வாலி",
+    correct:"A",
+    explanation:"Sumantra is Dasharatha’s charioteer.",
+    taExplanation:"சுமந்திரன் தசரதனின் தேரோட்டியார்."
+  },
+  {id:17, topic:"Ayodhya Kanda",
+    question:"Which Nishada king helps Rama cross the Ganga?",
+    taQuestion:"ராமர் கங்கை நதியை கடக்க உதவிய நிஷாத அரசன் யார்?",
+    A:"Janaka", taA:"ஜனகர்",
+    B:"Guha", taB:"குஹன்",
+    C:"Viradha", taC:"விராதன்",
+    D:"Sugriva", taD:"சுக்ரீவன்",
+    correct:"B",
+    explanation:"Guha helps Rama in his journey during exile.",
+    taExplanation:"வனவாசப் பயணத்தில் குஹன் ராமருக்கு உதவினார்."
+  },
+
+  {id:18, topic:"Aranya Kanda",
+    question:"In which forest region do Rama, Sita, and Lakshmana spend much of their exile?",
+    taQuestion:"ராமர், சீதை, லக்ஷ்மணன் வனவாச காலத்தில் நீண்ட நேரம் தங்கிய காடு எது?",
+    A:"Dandaka", taA:"தண்டகா வனம்",
+    B:"Kishkindha", taB:"கிஷ்கிந்தா",
+    C:"Lanka", taC:"லங்கை",
+    D:"Mithila", taD:"மிதிலா",
+    correct:"A",
+    explanation:"They reside for a long time in the Dandaka forest region.",
+    taExplanation:"அவர்கள் தண்டகா வனப்பகுதியில் நீண்ட காலம் தங்கினர்."
+  },
+  {id:19, topic:"Aranya Kanda",
+    question:"Who is Surpanakha?",
+    taQuestion:"சூர்ப்பணகை யார்?",
+    A:"Ravana’s sister", taA:"ராவணனின் சகோதரி",
+    B:"Vali’s wife", taB:"வாலியின் மனைவி",
+    C:"Sugriva’s mother", taC:"சுக்ரீவனின் தாய்",
+    D:"Janaka’s sister", taD:"ஜனகரின் சகோதரி",
+    correct:"A",
+    explanation:"Surpanakha is Ravana’s sister who approaches Rama.",
+    taExplanation:"ராமரிடம் வந்த சூர்ப்பணகை ராவணனின் சகோதரி."
+  },
+  {id:20, topic:"Aranya Kanda",
+    question:"What happens after Surpanakha threatens Sita?",
+    taQuestion:"சீதையை மிரட்டிய பின்னர் சூர்ப்பணகைக்கு என்ன நடந்தது?",
+    A:"Rama forgives her", taA:"ராமர் மன்னித்தார்",
+    B:"Lakshmana cuts her nose and ears", taB:"லக்ஷ்மணன் மூக்கு, காதுகளை வெட்டினார்",
+    C:"Hanuman captures her", taC:"ஹனுமான் பிடித்தார்",
+    D:"She becomes a devotee", taD:"அவள் பக்தையாக மாறினாள்",
+    correct:"B",
+    explanation:"Lakshmana mutilates her after her aggression.",
+    taExplanation:"அவள் ஆவேசத்தால் லக்ஷ்மணன் அவளுக்கு தண்டனை அளித்தார்."
+  },
+  {id:21, topic:"Aranya Kanda",
+    question:"Which demon disguises as a golden deer to lure Rama away?",
+    taQuestion:"ராமரை திசை திருப்ப பொன் மான் வடிவம் எடுத்த அரக்கன் யார்?",
+    A:"Kumbhakarna", taA:"கும்பகர்ணன்",
+    B:"Maricha", taB:"மாரீசன்",
+    C:"Akampana", taC:"அகம்பனன்",
+    D:"Vali", taD:"வாலி",
+    correct:"B",
+    explanation:"Maricha takes the form of the golden deer.",
+    taExplanation:"மாரீசன் பொன் மானாக மாறினான்."
+  },
+  {id:22, topic:"Aranya Kanda",
+    question:"Who abducts Sita?",
+    taQuestion:"சீதையை கடத்திச் சென்றவர் யார்?",
+    A:"Ravana", taA:"ராவணன்",
+    B:"Indrajit", taB:"இந்திரஜித்",
+    C:"Vibhishana", taC:"விபீஷணன்",
+    D:"Surpanakha", taD:"சூர்ப்பணகை",
+    correct:"A",
+    explanation:"Ravana kidnaps Sita from the forest.",
+    taExplanation:"ராவணன் சீதையை காட்டில் இருந்து கடத்தினான்."
+  },
+  {id:23, topic:"Aranya Kanda",
+    question:"Which bird fights Ravana during Sita’s abduction?",
+    taQuestion:"சீதையை கடத்தும் போது ராவணனுடன் போரிட்ட பறவை யார்?",
+    A:"Garuda", taA:"கருடன்",
+    B:"Jatayu", taB:"ஜடாயு",
+    C:"Sampati", taC:"சம்பாதி",
+    D:"Nandi", taD:"நந்தி",
+    correct:"B",
+    explanation:"Jatayu battles Ravana and informs Rama before dying.",
+    taExplanation:"ஜடாயு ராவணனுடன் போரிட்டு இறப்பதற்கு முன் ராமருக்கு செய்தி அளித்தான்."
+  },
+  {id:24, topic:"Aranya Kanda",
+    question:"Who is Sampati in relation to Jatayu?",
+    taQuestion:"சம்பாதி, ஜடாயுவுக்கு என்ன உறவு?",
+    A:"Father", taA:"தந்தை",
+    B:"Brother", taB:"சகோதரன்",
+    C:"Son", taC:"மகன்",
+    D:"Teacher", taD:"ஆசிரியர்",
+    correct:"B",
+    explanation:"Sampati is Jatayu’s brother.",
+    taExplanation:"சம்பாதி ஜடாயுவின் சகோதரன்."
+  },
+
+  {id:25, topic:"Kishkindha Kanda",
+    question:"Which vanara king does Rama befriend?",
+    taQuestion:"ராமர் நட்புறவு கொண்ட வானர அரசன் யார்?",
+    A:"Vali", taA:"வாலி",
+    B:"Sugriva", taB:"சுக்ரீவன்",
+    C:"Angada", taC:"அங்கதன்",
+    D:"Nala", taD:"நளன்",
+    correct:"B",
+    explanation:"Rama allies with Sugriva to find Sita.",
+    taExplanation:"சீதையை தேட ராமர் சுக்ரீவனுடன் கூட்டணி சேர்ந்தார்."
+  },
+  {id:26, topic:"Kishkindha Kanda",
+    question:"Who is Sugriva’s minister and foremost devotee of Rama?",
+    taQuestion:"சுக்ரீவனின் அமைச்சர் மற்றும் ராமரின் முக்கிய பக்தர் யார்?",
+    A:"Hanuman", taA:"ஹனுமான்",
+    B:"Jambavan", taB:"ஜாம்பவான்",
+    C:"Kesari", taC:"கேசரி",
+    D:"Tara", taD:"தாரை",
+    correct:"A",
+    explanation:"Hanuman becomes Rama’s key messenger and devotee.",
+    taExplanation:"ஹனுமான் ராமரின் முக்கிய தூதராகவும் பக்தராகவும் ஆனார்."
+  },
+  {id:27, topic:"Kishkindha Kanda",
+    question:"Why does Rama kill Vali?",
+    taQuestion:"ராமர் வாலியை ஏன் கொன்றார்?",
+    A:"For stealing Sita", taA:"சீதையை திருடியதால்",
+    B:"For disrupting yajna", taB:"யாகத்தை கெடுத்ததால்",
+    C:"For attacking Sugriva and wrongdoing", taC:"சுக்ரீவனை தாக்கி அநீதி செய்ததால்",
+    D:"For insulting Dasharatha", taD:"தசரதனை அவமதித்ததால்",
+    correct:"C",
+    explanation:"Rama kills Vali due to Vali’s actions toward Sugriva and dharma issues.",
+    taExplanation:"வாலியின் அநீதியான நடத்தை மற்றும் சுக்ரீவனுக்கு செய்த தவறுகளால் ராமர் வாலியை வதம் செய்தார்."
+  },
+  {id:28, topic:"Kishkindha Kanda",
+    question:"Who becomes the ruler of Kishkindha after Vali’s death?",
+    taQuestion:"வாலி இறந்த பிறகு கிஷ்கிந்தாவின் அரசன் யார் ஆனார்?",
+    A:"Angada", taA:"அங்கதன்",
+    B:"Sugriva", taB:"சுக்ரீவன்",
+    C:"Hanuman", taC:"ஹனுமான்",
+    D:"Jambavan", taD:"ஜாம்பவான்",
+    correct:"B",
+    explanation:"Sugriva is restored as king.",
+    taExplanation:"சுக்ரீவன் மீண்டும் அரசனாக ஆனார்."
+  },
+
+  {id:29, topic:"Sundara Kanda",
+    question:"Who finds Sita in Lanka?",
+    taQuestion:"லங்கையில் சீதையை கண்டவர் யார்?",
+    A:"Sugriva", taA:"சுக்ரீவன்",
+    B:"Hanuman", taB:"ஹனுமான்",
+    C:"Angada", taC:"அங்கதன்",
+    D:"Nila", taD:"நீலன்",
+    correct:"B",
+    explanation:"Hanuman discovers Sita in Ashoka Vatika.",
+    taExplanation:"ஹனுமான் அசோகவனிகையில் சீதையை கண்டார்."
+  },
+  {id:30, topic:"Sundara Kanda",
+    question:"What is the name of the garden where Sita is kept in Lanka?",
+    taQuestion:"லங்கையில் சீதை வைத்திருந்த தோட்டத்தின் பெயர் என்ன?",
+    A:"Nandana", taA:"நந்தனம்",
+    B:"Chitrakuta", taB:"சித்ரகூடம்",
+    C:"Ashoka Vatika", taC:"அசோகவனிகை",
+    D:"Panchavati", taD:"பஞ்சவடி",
+    correct:"C",
+    explanation:"Sita stays in Ashoka Vatika under guard.",
+    taExplanation:"சீதை காவலுடன் அசோகவனிகையில் இருந்தாள்."
+  },
+  {id:31, topic:"Sundara Kanda",
+    question:"What token does Rama give Hanuman to show Sita?",
+    taQuestion:"சீதைக்கு அடையாளமாக காட்ட ஹனுமானுக்கு ராமர் கொடுத்த பொருள் என்ன?",
+    A:"A bow", taA:"வில்",
+    B:"A crown", taB:"கிரீடம்",
+    C:"A ring", taC:"மோதிரம்",
+    D:"A sword", taD:"வாள்",
+    correct:"C",
+    explanation:"Rama’s ring is shown to Sita as proof.",
+    taExplanation:"ராமரின் மோதிரத்தை சீதைக்கு ஆதாரமாக காட்டினார்."
+  },
+  {id:32, topic:"Sundara Kanda",
+    question:"Who comforts Sita with hopeful words and dreams?",
+    taQuestion:"சீதைக்கு நம்பிக்கை அளித்து ஆறுதல் சொன்ன ராட்சசி யார்?",
+    A:"Trijata", taA:"திரிஜடா",
+    B:"Tara", taB:"தாரை",
+    C:"Urmila", taC:"உர்மிளை",
+    D:"Renuka", taD:"ரேணுகா",
+    correct:"A",
+    explanation:"Trijata reassures Sita and speaks of Rama’s victory.",
+    taExplanation:"திரிஜடா சீதைக்கு ஆறுதல் கூறி ராமரின் வெற்றியைச் சொன்னாள்."
+  },
+  {id:33, topic:"Sundara Kanda",
+    question:"What does Hanuman famously do after meeting Sita?",
+    taQuestion:"சீதையை சந்தித்த பின் ஹனுமான் பிரபலமாக செய்தது என்ன?",
+    A:"Leaves immediately", taA:"உடனே திரும்பினார்",
+    B:"Sets parts of Lanka ablaze", taB:"லங்கையின் பகுதிகளை தீ வைத்து எரித்தார்",
+    C:"Builds a bridge", taC:"பாலம் கட்டினார்",
+    D:"Defeats Kumbhakarna", taD:"கும்பகர்ணனை வென்றார்",
+    correct:"B",
+    explanation:"Hanuman burns parts of Lanka after his tail is set on fire.",
+    taExplanation:"வால் தீப்பிடித்ததால் ஹனுமான் லங்கையின் பகுதிகளை எரித்தார்."
+  },
+
+  {id:34, topic:"Yuddha Kanda",
+    question:"What structure is built to reach Lanka?",
+    taQuestion:"லங்கையை அடைய கட்டப்பட்ட அமைப்பு எது?",
+    A:"A tunnel", taA:"சுரங்கம்",
+    B:"A bridge (setu)", taB:"பாலம் (சேது)",
+    C:"A fleet of ships", taC:"கப்பற்படை",
+    D:"A mountain pass", taD:"மலை வழித்தடம்",
+    correct:"B",
+    explanation:"The vanara army builds the setu to cross to Lanka.",
+    taExplanation:"வானர சேனை லங்கைக்கு செல்வதற்காக சேதுவை கட்டியது."
+  },
+  {id:35, topic:"Yuddha Kanda",
+    question:"Who is the chief engineer associated with the bridge?",
+    taQuestion:"சேது பாலம் கட்டுதலுடன் தொடர்புடைய முக்கிய கட்டுமான நிபுணர் யார்?",
+    A:"Nala", taA:"நளன்",
+    B:"Angada", taB:"அங்கதன்",
+    C:"Hanuman", taC:"ஹனுமான்",
+    D:"Kesari", taD:"கேசரி",
+    correct:"A",
+    explanation:"Nala is credited as a leading builder of the bridge.",
+    taExplanation:"சேது பாலத்தின் முக்கிய கட்டுமானராக நளன் குறிப்பிடப்படுகிறார்."
+  },
+  {id:36, topic:"Yuddha Kanda",
+    question:"Who is Ravana’s brother who joins Rama’s side?",
+    taQuestion:"ராவணனின் சகோதரர்களில் ராமரின் பக்கம் சேர்ந்தவர் யார்?",
+    A:"Kumbhakarna", taA:"கும்பகர்ணன்",
+    B:"Vibhishana", taB:"விபீஷணன்",
+    C:"Indrajit", taC:"இந்திரஜித்",
+    D:"Akampana", taD:"அகம்பனன்",
+    correct:"B",
+    explanation:"Vibhishana defects to Rama and advises dharma.",
+    taExplanation:"விபீஷணன் ராமரின் பக்கம் வந்து தர்மத்தை அறிவுறுத்தினார்."
+  },
+  {id:37, topic:"Yuddha Kanda",
+    question:"Meghnad is also known as?",
+    taQuestion:"மேகநாதன் எனப்படுபவர் வேறு எந்த பெயரில் அறியப்படுகிறார்?",
+    A:"Vibhishana", taA:"விபீஷணன்",
+    B:"Indrajit", taB:"இந்திரஜித்",
+    C:"Jambavan", taC:"ஜாம்பவான்",
+    D:"Sugriva", taD:"சுக்ரீவன்",
+    correct:"B",
+    explanation:"Meghnad is Indrajit, Ravana’s powerful son.",
+    taExplanation:"மேகநாதன் என்பது இந்திரஜித்; அவர் ராவணனின் சக்திவாய்ந்த மகன்."
+  },
+  {id:38, topic:"Yuddha Kanda",
+    question:"Which weapon is described as binding Rama and Lakshmana (in many tellings)?",
+    taQuestion:"பல கூறுகைகளில் ராமர்-லக்ஷ்மணரை கட்டியதாக கூறப்படும் ஆயுதம் எது?",
+    A:"Naga Pasha", taA:"நாகபாசம்",
+    B:"Brahmastra", taB:"பிரம்மாஸ்திரம்",
+    C:"Agneyastra", taC:"அக்நேயாஸ்திரம்",
+    D:"Vayavyastra", taD:"வாயவ்யாஸ்திரம்",
+    correct:"A",
+    explanation:"Naga Pasha is described as a serpent-noose binding them.",
+    taExplanation:"நாகபாசம் பாம்பு கயிறு போல் கட்டும் ஆயுதமாக கூறப்படுகிறது."
+  },
+  {id:39, topic:"Yuddha Kanda",
+    question:"Who defeats Indrajit?",
+    taQuestion:"இந்திரஜித்தை தோற்கடித்தவர் யார்?",
+    A:"Lakshmana", taA:"லக்ஷ்மணன்",
+    B:"Rama", taB:"ராமர்",
+    C:"Hanuman", taC:"ஹனுமான்",
+    D:"Sugriva", taD:"சுக்ரீவன்",
+    correct:"A",
+    explanation:"Lakshmana kills Indrajit in the war.",
+    taExplanation:"யுத்தத்தில் லக்ஷ்மணன் இந்திரஜித்தை வதம் செய்தார்."
+  },
+  {id:40, topic:"Yuddha Kanda",
+    question:"Which giant rakshasa is known for long sleep and is awakened to fight?",
+    taQuestion:"நீண்ட தூக்கத்துக்காக பிரபலமான (பின்னர் போருக்கு எழுப்பப்பட்ட) பெரும் அரக்கன் யார்?",
+    A:"Vibhishana", taA:"விபீஷணன்",
+    B:"Khara", taB:"கரன்",
+    C:"Kumbhakarna", taC:"கும்பகர்ணன்",
+    D:"Maricha", taD:"மாரீசன்",
+    correct:"C",
+    explanation:"Kumbhakarna is famed for immense sleep and strength.",
+    taExplanation:"கும்பகர்ணன் மிகுந்த தூக்கமும் பேராற்றலும் கொண்டவன்."
+  },
+  {id:41, topic:"Yuddha Kanda",
+    question:"Who kills Kumbhakarna?",
+    taQuestion:"கும்பகர்ணனை கொன்றவர் யார்?",
+    A:"Lakshmana", taA:"லக்ஷ்மணன்",
+    B:"Rama", taB:"ராமர்",
+    C:"Hanuman", taC:"ஹனுமான்",
+    D:"Angada", taD:"அங்கதன்",
+    correct:"B",
+    explanation:"Rama defeats Kumbhakarna in battle.",
+    taExplanation:"போரில் ராமர் கும்பகர்ணனை வதம் செய்தார்."
+  },
+  {id:42, topic:"Yuddha Kanda",
+    question:"Who kills Ravana?",
+    taQuestion:"ராவணனை கொன்றவர் யார்?",
+    A:"Lakshmana", taA:"லக்ஷ்மணன்",
+    B:"Rama", taB:"ராமர்",
+    C:"Hanuman", taC:"ஹனுமான்",
+    D:"Vibhishana", taD:"விபீஷணன்",
+    correct:"B",
+    explanation:"Rama kills Ravana, ending the war.",
+    taExplanation:"ராமர் ராவணனை வதம் செய்து யுத்தத்தை முடித்தார்."
+  },
+  {id:43, topic:"Yuddha Kanda",
+    question:"What is the name of Ravana’s wife?",
+    taQuestion:"ராவணனின் மனைவி யார்?",
+    A:"Kaikeyi", taA:"கைகேயி",
+    B:"Mandodari", taB:"மண்டோதரி",
+    C:"Tara", taC:"தாரை",
+    D:"Trijata", taD:"திரிஜடா",
+    correct:"B",
+    explanation:"Mandodari is Ravana’s queen.",
+    taExplanation:"மண்டோதரி ராவணனின் அரசி."
+  },
+  {id:44, topic:"Yuddha Kanda",
+    question:"After rescue, which test is famously associated with Sita in many versions?",
+    taQuestion:"மீட்கப்பட்ட பிறகு பல பதிப்புகளில் சீதையுடன் தொடர்புபடுத்தப்படும் பிரபலமான சோதனை எது?",
+    A:"Water test", taA:"நீர் சோதனை",
+    B:"Fire ordeal (Agni Pariksha)", taB:"அக்னி பரீட்சை (தீ சோதனை)",
+    C:"Archery trial", taC:"வில் சோதனை",
+    D:"Sage’s oath", taD:"முனிவரின் சத்தியம்",
+    correct:"B",
+    explanation:"Agni Pariksha is a well-known episode in many retellings.",
+    taExplanation:"அக்னி பரீட்சை பல மறுகூறுகைகளில் அறியப்பட்ட நிகழ்வு."
+  },
+
+  {id:45, topic:"Uttara Kanda",
+    question:"What are the names of Sita’s twin sons?",
+    taQuestion:"சீதையின் இரட்டை மகன்களின் பெயர்கள் என்ன?",
+    A:"Lava and Kusha", taA:"லவ மற்றும் குச",
+    B:"Nala and Nila", taB:"நளன் மற்றும் நீலன்",
+    C:"Angada and Tara", taC:"அங்கதன் மற்றும் தாரை",
+    D:"Kesari and Sugriva", taD:"கேசரி மற்றும் சுக்ரீவன்",
+    correct:"A",
+    explanation:"Lava and Kusha are the twin sons of Sita and Rama.",
+    taExplanation:"லவ-குசர் சீதை-ராமரின் இரட்டை மகன்கள்."
+  },
+  {id:46, topic:"Uttara Kanda",
+    question:"Who teaches Lava and Kusha and is linked to the composition/recitation of the Ramayana?",
+    taQuestion:"லவ-குசருக்கு போதித்தவர் மற்றும் ராமாயணத்தின் இயற்றல்/பாடல் நிகழ்வுடன் தொடர்புடையவர் யார்?",
+    A:"Valmiki", taA:"வால்மீகி",
+    B:"Vashistha", taB:"வசிஷ்டர்",
+    C:"Visvamitra", taC:"விஸ்வாமித்ரர்",
+    D:"Agastya", taD:"அகஸ்தியர்",
+    correct:"A",
+    explanation:"Valmiki teaches/raises them and the epic is recited.",
+    taExplanation:"வால்மீகி அவர்களை போதித்து வளர்த்தார்; பின்னர் அவர்கள் இதிகாசத்தை பாடினர்."
+  },
+
+  {id:47, topic:"General",
+    question:"Rama’s epithet meaning “descendant of Raghu” is?",
+    taQuestion:"‘ரகுவின் வம்சத்தவர்’ என்ற பொருளில் ராமரின் பட்டப்பெயர் எது?",
+    A:"Dasharathi", taA:"தசரதி",
+    B:"Raghava", taB:"ராகவா",
+    C:"Janaki-pati", taC:"ஜானகி-பதி",
+    D:"Kaushalya-nandana", taD:"கௌசல்யா நந்தனன்",
+    correct:"B",
+    explanation:"Raghava refers to Rama’s Raghu lineage.",
+    taExplanation:"ராகவா என்பது ரகுவம்சத்தைக் குறிக்கும்."
+  },
+  {id:48, topic:"General",
+    question:"Sita is also called (meaning “daughter of Janaka”)?",
+    taQuestion:"‘ஜனகரின் மகள்’ என்ற பொருளில் சீதை வேறு எந்த பெயரில் அழைக்கப்படுகிறாள்?",
+    A:"Kaikeyi", taA:"கைகேயி",
+    B:"Janaki", taB:"ஜானகி",
+    C:"Mandodari", taC:"மண்டோதரி",
+    D:"Trijata", taD:"திரிஜடா",
+    correct:"B",
+    explanation:"Janaki is a common name for Sita.",
+    taExplanation:"ஜானகி என்பது சீதையின் பொதுவான பெயர்."
+  },
+  {id:49, topic:"General",
+    question:"What is the name of Rama’s kingdom?",
+    taQuestion:"ராமரின் ராஜ்யம் (நாடு) எது?",
+    A:"Mithila", taA:"மிதிலா",
+    B:"Ayodhya", taB:"அயோத்தி",
+    C:"Lanka", taC:"லங்கை",
+    D:"Kishkindha", taD:"கிஷ்கிந்தா",
+    correct:"B",
+    explanation:"Rama is the prince of Ayodhya.",
+    taExplanation:"ராமர் அயோத்தியின் இளவரசர்."
+  },
+  {id:50, topic:"General",
+    question:"Which character is known as Rama’s greatest devotee and messenger?",
+    taQuestion:"ராமரின் மிகப்பெரிய பக்தரும் தூதராகவும் அறியப்படுவது யார்?",
+    A:"Sugriva", taA:"சுக்ரீவன்",
+    B:"Hanuman", taB:"ஹனுமான்",
+    C:"Angada", taC:"அங்கதன்",
+    D:"Nala", taD:"நளன்",
+    correct:"B",
+    explanation:"Hanuman is Rama’s devoted messenger and key helper.",
+    taExplanation:"ஹனுமான் ராமரின் பக்தரும் முக்கிய தூதரும் உதவியாளரும்."
+  }
+];
+
+document.getElementById("bankCount").textContent = BANK.length;
+
+/* ----------------------- STATE ----------------------- */
+const LS_KEY = "ramayana_quiz_theme3_v2";
+let selectedCount = 50;
+let shuffleOn = true;
+let ttsAuto = false;
+let ttsRate = 1.0;
+
+let selectedTopics = new Set(TOPICS.map(t=>t.key)); // default all
+let quiz = [];
+let idx = 0;
+let score = 0;
+let answers = {};    // qid -> "A"/"B"/"C"/"D"
+let locked = {};     // qid -> true
+let finished = false;
+
+/* ----------------------- ELEMENTS ----------------------- */
+const statusPill = document.getElementById("statusPill");
+
+const screenSetup = document.getElementById("screenSetup");
+const screenQuiz = document.getElementById("screenQuiz");
+const screenResults = document.getElementById("screenResults");
+
+const shuffleToggle = document.getElementById("shuffleToggle");
+const ttsAutoToggle = document.getElementById("ttsAutoToggle");
+const ttsSpeedLabel = document.getElementById("ttsSpeedLabel");
+const btnSpeedDown = document.getElementById("btnSpeedDown");
+const btnSpeedUp = document.getElementById("btnSpeedUp");
+const btnTTSStop = document.getElementById("btnTTSStop");
+
+const pickedCount = document.getElementById("pickedCount");
+const setupNote = document.getElementById("setupNote");
+
+const filterRow = document.getElementById("filterRow");
+const btnSelectAll = document.getElementById("btnSelectAll");
+const btnSelectNone = document.getElementById("btnSelectNone");
+const selectedTopicsCount = document.getElementById("selectedTopicsCount");
+
+const btnStart = document.getElementById("btnStart");
+const btnContinue = document.getElementById("btnContinue");
+const btnDiscard = document.getElementById("btnDiscard");
+
+const qMeta = document.getElementById("qMeta");
+const qText = document.getElementById("qText");
+const optionsEl = document.getElementById("options");
+const explainBox = document.getElementById("explainBox");
+const progressFill = document.getElementById("progressFill");
+const ringStroke = document.getElementById("ringStroke");
+const pctText = document.getElementById("pctText");
+const scorePill = document.getElementById("scorePill");
+
+const btnBack = document.getElementById("btnBack");
+const btnNext = document.getElementById("btnNext");
+const btnExit = document.getElementById("btnExit");
+const btnListen = document.getElementById("btnListen");
+const btnStop = document.getElementById("btnStop");
+
+const resultSub = document.getElementById("resultSub");
+const resultScorePill = document.getElementById("resultScorePill");
+const btnReview = document.getElementById("btnReview");
+const btnRestart = document.getElementById("btnRestart");
+const reviewWrap = document.getElementById("reviewWrap");
+
+const btnHomeTop = document.getElementById("btnHomeTop");
+const btnExitTop = document.getElementById("btnExitTop");
+
+const langEN = document.getElementById("langEN");
+const langTA = document.getElementById("langTA");
+
+const modalBg = document.getElementById("modalBg");
+const modalTitle = document.getElementById("modalTitle");
+const modalText = document.getElementById("modalText");
+const modalCancel = document.getElementById("modalCancel");
+const modalOk = document.getElementById("modalOk");
+
+/* ----------------------- HELPERS ----------------------- */
+function setStatus(text){ statusPill.textContent = text; }
+function vib(ms=15){ try{ navigator.vibrate?.(ms); }catch(e){} }
+
+function showScreen(which){
+  screenSetup.classList.toggle("hidden", which !== "setup");
+  screenQuiz.classList.toggle("hidden", which !== "quiz");
+  screenResults.classList.toggle("hidden", which !== "results");
+}
+
+function deepCopy(obj){ return JSON.parse(JSON.stringify(obj)); }
+
+function shuffleArray(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function clamp(n,a,b){ return Math.max(a, Math.min(b, n)); }
+
+function ui(key, ...args){
+  const dict = UI[lang] || UI.en;
+  const v = dict[key];
+  return typeof v === "function" ? v(...args) : v;
+}
+
+function tField(q, field){
+  if(lang === "ta"){
+    const taKey = "ta" + field[0].toUpperCase() + field.slice(1);
+    return q[taKey] || q[field] || "";
+  }
+  return q[field] || "";
+}
+
+/* ----------------------- TTS ----------------------- */
+function ttsSupported(){
+  return typeof window !== "undefined" && "speechSynthesis" in window && typeof SpeechSynthesisUtterance !== "undefined";
+}
+function stopSpeak(){
+  if(ttsSupported()){
+    try{ window.speechSynthesis.cancel(); }catch(e){}
+  }
+}
+function pickVoice(langCode){
+  const voices = window.speechSynthesis.getVoices?.() || [];
+  // Prefer exact language match
+  const exact = voices.find(v => (v.lang || "").toLowerCase().startsWith(langCode.toLowerCase()));
+  if(exact) return exact;
+  // Otherwise any english / tamil-ish
+  if(langCode.startsWith("ta")){
+    return voices.find(v => (v.lang || "").toLowerCase().includes("ta")) || null;
+  }
+  return voices.find(v => (v.lang || "").toLowerCase().includes("en")) || null;
+}
+function speakText(text, langCode){
+  if(!ttsSupported()){
+    openModal(ui("ttsUnavailable"), ui("ttsUnavailable"), "OK", "Close", ()=>{});
+    return;
+  }
+  stopSpeak();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = langCode;
+  u.rate = ttsRate;
+  const v = pickVoice(langCode);
+  if(v) u.voice = v;
+  window.speechSynthesis.speak(u);
+}
+function speakCurrent(){
+  const q = currentQ();
+  if(!q) return;
+  const langCode = (lang === "ta") ? "ta-IN" : "en-GB";
+  const letters = ["A","B","C","D"];
+  const parts = [];
+  parts.push(tField(q, "question"));
+  letters.forEach(L=>{
+    const optTxt = tField(q, L);
+    parts.push(`${L}. ${optTxt}`);
+  });
+  speakText(parts.join("   "), langCode);
+}
+
+/* Load voices once (some browsers need a dummy call) */
+if(ttsSupported()){
+  try{ window.speechSynthesis.getVoices(); }catch(e){}
+  window.speechSynthesis.onvoiceschanged = ()=>{};
+}
+
+/* ----------------------- STORAGE ----------------------- */
+function saveProgress(){
+  try{
+    const payload = {
+      lang, selectedCount, shuffleOn, ttsAuto, ttsRate,
+      selectedTopics: Array.from(selectedTopics),
+      quiz, idx, score, answers, locked, finished
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(payload));
+    setStatus("Saved");
+  }catch(e){
+    // If storage fails, app should still work
+    setStatus("Ready");
+  }
+}
+
+function loadProgress(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return null;
+    return JSON.parse(raw);
+  }catch(e){
+    return null;
+  }
+}
+
+function clearProgress(){
+  try{
+    localStorage.removeItem(LS_KEY);
+  }catch(e){}
+  setStatus("Cleared");
+}
+
+
+/* ----------------------- QUIZ BUILD ----------------------- */
+function buildQuiz(){
+  stopSpeak();
+
+  let pool = deepCopy(BANK).filter(q => selectedTopics.has(q.topic));
+  const available = pool.length;
+
+  if(shuffleOn) pool = shuffleArray(pool);
+
+  if(available < selectedCount){
+    setupNote.textContent = ui("notEnough", selectedCount, available);
+    selectedCount = available;
+    pickedCount.textContent = String(selectedCount);
+  }
+
+  quiz = pool.slice(0, selectedCount);
+  idx = 0;
+  score = 0;
+  answers = {};
+  locked = {};
+  finished = false;
+}
+function currentQ(){ return quiz[idx]; }
+
+/* ----------------------- RENDER ----------------------- */
+function updateHeader(){
+  const q = currentQ();
+  const pos = idx + 1;
+  const total = quiz.length;
+
+  const topicLabel = TOPICS.find(t=>t.key===q.topic)?.[lang==="ta" ? "ta" : "en"] || q.topic;
+
+  qMeta.innerHTML = `
+    <span class="tag">${topicLabel}</span>
+    <span class="tag">${pos} / ${total}</span>
+    <span class="tag">ID: ${q.id}</span>
+  `;
+
+  scorePill.textContent = ui("score", score);
+
+  const pct = Math.round(((pos-1)/total) * 100);
+  progressFill.style.width = `${pct}%`;
+  pctText.textContent = `${pct}%`;
+
+  const circumference = 106.8;
+  const offset = circumference - (circumference * (pct/100));
+  ringStroke.setAttribute("stroke-dashoffset", String(offset));
+}
+
+function paintOptions(selected, correct){
+  const buttons = [...optionsEl.querySelectorAll(".opt")];
+  buttons.forEach(b=>{
+    const letter = b.dataset.letter;
+    b.classList.add("dim");
+    if(letter === correct) b.classList.add("correct");
+    if(letter === selected && selected !== correct) b.classList.add("wrong");
+    if(letter === selected) b.classList.remove("dim");
+    if(letter === correct) b.classList.remove("dim");
+  });
+}
+
+function renderQuestion(){
+  stopSpeak();
+
+  const q = currentQ();
+  const selected = answers[q.id] || null;
+
+  explainBox.textContent = "";
+  qText.textContent = tField(q, "question");
+
+  optionsEl.innerHTML = "";
+  const letters = ["A","B","C","D"];
+  letters.forEach(letter=>{
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "opt";
+    btn.dataset.letter = letter;
+
+    const badge = document.createElement("div");
+    badge.className = "badge";
+    badge.textContent = letter;
+
+    const txt = document.createElement("div");
+    txt.className = "optText";
+    txt.textContent = tField(q, letter);
+
+    btn.appendChild(badge);
+    btn.appendChild(txt);
+
+    btn.addEventListener("click", ()=> onSelect(letter));
+    optionsEl.appendChild(btn);
+  });
+
+  if(selected){
+    paintOptions(selected, q.correct);
+    explainBox.textContent = tField(q, "explanation");
+  }
+
+  btnBack.disabled = (idx === 0);
+  document.getElementById("ui_nextBtn").textContent =
+    (idx === quiz.length - 1) ? ui("finishBtn") : ui("nextBtn");
+
+  btnListen.textContent = ui("listen");
+  btnStop.textContent = ui("stop");
+
+  updateHeader();
+  setStatus("In Quiz");
+
+  if(ttsAuto) speakCurrent();
+}
+
+function onSelect(letter){
+  stopSpeak();
+
+  const q = currentQ();
+  if(locked[q.id]) return;
+
+  vib(15);
+
+  answers[q.id] = letter;
+  locked[q.id] = true;
+
+  if(letter === q.correct){
+    score += 1;
+    vib(25);
+  }else{
+    vib(35);
+  }
+
+  paintOptions(letter, q.correct);
+  explainBox.textContent = tField(q, "explanation");
+
+  saveProgress();
+}
+
+function goNext(){
+  stopSpeak();
+
+  if(idx === quiz.length - 1){
+    finishQuiz();
+    return;
+  }
+  idx = clamp(idx+1, 0, quiz.length-1);
+  saveProgress();
+  renderQuestion();
+}
+function goBack(){
+  stopSpeak();
+  idx = clamp(idx-1, 0, quiz.length-1);
+  saveProgress();
+  renderQuestion();
+}
+function finishQuiz(){
+  stopSpeak();
+  finished = true;
+  saveProgress();
+  showResults();
+}
+
+function showResults(){
+  stopSpeak();
+  showScreen("results");
+  setStatus("Results");
+
+  const total = quiz.length;
+  const answeredCount = Object.keys(answers).length;
+  const wrong = answeredCount - score;
+
+  resultScorePill.textContent = `${ui("score", score)} / ${total}`;
+  resultSub.textContent = ui("resultsLine", answeredCount, score, wrong);
+
+  progressFill.style.width = "100%";
+  pctText.textContent = "100%";
+  ringStroke.setAttribute("stroke-dashoffset", "0");
+}
+
+/* ----------------------- REVIEW ----------------------- */
+function renderReview(){
+  stopSpeak();
+
+  reviewWrap.classList.remove("hidden");
+  reviewWrap.innerHTML = "";
+
+  quiz.forEach((q, i)=>{
+    const your = answers[q.id] || "-";
+    const correct = q.correct;
+    const ok = (your === correct);
+
+    const topicLabel = TOPICS.find(t=>t.key===q.topic)?.[lang==="ta" ? "ta" : "en"] || q.topic;
+
+    const div = document.createElement("div");
+    div.className = "card";
+    div.style.borderRadius = "18px";
+    div.style.marginTop = "10px";
+    div.style.boxShadow = "0 12px 28px rgba(2,44,32,.08)";
+    div.innerHTML = `
+      <div class="inner">
+        <div class="qMeta">
+          <span class="tag">${topicLabel}</span>
+          <span class="tag">Q${i+1}</span>
+          <span class="tag ${ok ? "good" : "bad"}">${ok ? (lang==="ta" ? "சரி" : "Correct") : (lang==="ta" ? "தவறு" : "Wrong")}</span>
+        </div>
+        <div class="qText" style="font-size:16px; margin-top:8px;">${tField(q,"question")}</div>
+        <div class="p" style="margin-top:10px;">
+          <div><b>${lang==="ta" ? "உங்கள் பதில்" : "Your answer"}:</b> ${your} ${your !== "-" ? "— " + tField(q, your) : ""}</div>
+          <div><b>${lang==="ta" ? "சரியான பதில்" : "Correct"}:</b> ${correct} — ${tField(q, correct)}</div>
+          <div style="margin-top:8px;"><b>${lang==="ta" ? "விளக்கம்" : "Explanation"}:</b> ${tField(q, "explanation")}</div>
+        </div>
+      </div>
+    `;
+    reviewWrap.appendChild(div);
+  });
+}
+
+/* ----------------------- MODAL ----------------------- */
+let modalAction = null;
+function openModal(title, text, okText, cancelText, onOk){
+  modalAction = onOk;
+  modalTitle.textContent = title;
+  modalText.textContent = text;
+  modalOk.textContent = okText;
+  modalCancel.textContent = cancelText;
+  modalBg.style.display = "flex";
+}
+function closeModal(){
+  modalBg.style.display = "none";
+  modalAction = null;
+}
+modalCancel.addEventListener("click", ()=>{ vib(10); closeModal(); });
+modalOk.addEventListener("click", ()=>{
+  vib(12);
+  closeModal();
+  modalAction?.();
+});
+
+/* ----------------------- FILTER UI ----------------------- */
+function renderFilter(){
+  filterRow.innerHTML = "";
+  TOPICS.forEach(t=>{
+    const chip = document.createElement("div");
+    chip.className = "fchip" + (selectedTopics.has(t.key) ? " on" : "");
+    chip.innerHTML = `
+      <input type="checkbox" ${selectedTopics.has(t.key) ? "checked" : ""} />
+      <span>${lang==="ta" ? t.ta : t.en}</span>
+    `;
+    chip.addEventListener("click", (e)=>{
+      const on = selectedTopics.has(t.key);
+      if(on) selectedTopics.delete(t.key);
+      else selectedTopics.add(t.key);
+      // Ensure at least one topic selected
+      if(selectedTopics.size === 0) selectedTopics.add(t.key);
+
+      vib(10);
+      renderFilter();
+      updateSelectedTopicsLabel();
+      saveProgress();
+    });
+    filterRow.appendChild(chip);
+  });
+}
+function updateSelectedTopicsLabel(){
+  if(selectedTopics.size === TOPICS.length){
+    selectedTopicsCount.textContent = (lang==="ta" ? "அனைத்து" : "All");
+  }else{
+    selectedTopicsCount.textContent = `${selectedTopics.size}/${TOPICS.length}`;
+  }
+}
+
+/* ----------------------- LANGUAGE ----------------------- */
+function applyLang(){
+  localStorage.setItem("ramayana_lang", lang);
+
+  langEN.classList.toggle("active", lang==="en");
+  langTA.classList.toggle("active", lang==="ta");
+
+  document.getElementById("ui_title").textContent = ui("title");
+  document.getElementById("ui_subtitle").textContent = ui("subtitle");
+
+  document.getElementById("ui_setupTitle").textContent = ui("setupTitle");
+  document.getElementById("ui_setupDesc").textContent = ui("setupDesc");
+  document.getElementById("ui_questionsLabel").textContent = ui("questionsLabel");
+  document.getElementById("ui_shuffleLabel").textContent = ui("shuffleLabel");
+  document.getElementById("ui_ttsAutoLabel").textContent = ui("ttsAutoLabel");
+  document.getElementById("ui_speedLabel").textContent = ui("speedLabel");
+  document.getElementById("ui_startBtn").textContent = ui("startBtn");
+  document.getElementById("ui_continueBtn").textContent = ui("continueBtn");
+  document.getElementById("ui_discardBtn").textContent = ui("discardBtn");
+  document.getElementById("ui_tipTitle").textContent = ui("tipTitle");
+  document.getElementById("ui_tipText").textContent = ui("tipText");
+  document.getElementById("ui_bankLabel").textContent = ui("bankLabel");
+  document.getElementById("ui_storageLabel").textContent = ui("storageLabel");
+  document.getElementById("ui_selectedTopicsLabel").textContent = ui("selectedTopicsLabel");
+
+  document.getElementById("ui_filterTitle").textContent = ui("filterTitle");
+  document.getElementById("ui_filterDesc").textContent = ui("filterDesc");
+  btnSelectAll.textContent = ui("selectAll");
+  btnSelectNone.textContent = ui("selectNone");
+
+  document.getElementById("ui_backBtn").textContent = ui("backBtn");
+  document.getElementById("ui_nextBtn").textContent = ui("nextBtn");
+  document.getElementById("ui_exitBtn").textContent = ui("exitBtn");
+
+  document.getElementById("ui_resultsTitle").textContent = ui("resultsTitle");
+  document.getElementById("ui_reviewBtn").textContent = ui("reviewBtn");
+  document.getElementById("ui_restartBtn").textContent = ui("restartBtn");
+
+  updateSetupButtons();
+  renderFilter();
+  updateSelectedTopicsLabel();
+
+  if(!screenQuiz.classList.contains("hidden") && quiz.length){
+    renderQuestion();
+  }
+  if(!screenResults.classList.contains("hidden") && quiz.length){
+    showResults();
+    if(!reviewWrap.classList.contains("hidden")) renderReview();
+  }
+}
+
+/* ----------------------- SETUP BUTTONS ----------------------- */
+function setCount(n){
+  selectedCount = n;
+  pickedCount.textContent = String(n);
+
+  const buttons = [...screenSetup.querySelectorAll("button[data-count]")];
+  buttons.forEach(b=>{
+    b.classList.remove("primary");
+    b.classList.add("ghost");
+    if(parseInt(b.dataset.count,10) === n){
+      b.classList.add("primary");
+      b.classList.remove("ghost");
+    }
+  });
+
+  setupNote.textContent = ui("selected", n);
+  saveProgress();
+}
+
+function updateSetupButtons(){
+  const saved = loadProgress();
+  const hasSaved = !!saved;
+
+  btnContinue.classList.toggle("hidden", !hasSaved);
+  btnDiscard.classList.toggle("hidden", !hasSaved);
+
+  if(hasSaved){
+    setupNote.textContent = ui("savedFound");
+    setStatus("Saved quiz found");
+  }else{
+    setupNote.textContent = ui("noneSaved");
+    setStatus("Ready");
+  }
+}
+
+/* ----------------------- EVENTS ----------------------- */
+screenSetup.addEventListener("click", (e)=>{
+  const btn = e.target.closest("button[data-count]");
+  if(!btn) return;
+  vib(10);
+  setCount(parseInt(btn.dataset.count, 10));
+});
+
+shuffleToggle.addEventListener("change", ()=>{
+  shuffleOn = shuffleToggle.checked;
+  vib(10);
+  saveProgress();
+});
+ttsAutoToggle.addEventListener("change", ()=>{
+  ttsAuto = ttsAutoToggle.checked;
+  vib(10);
+  saveProgress();
+});
+
+function setSpeed(newRate){
+  ttsRate = Math.max(0.7, Math.min(1.3, Math.round(newRate * 10) / 10));
+  ttsSpeedLabel.textContent = `${ttsRate.toFixed(1)}×`;
+  saveProgress();
+}
+btnSpeedDown.addEventListener("click", ()=>{ vib(10); setSpeed(ttsRate - 0.1); });
+btnSpeedUp.addEventListener("click", ()=>{ vib(10); setSpeed(ttsRate + 0.1); });
+btnTTSStop.addEventListener("click", ()=>{ vib(10); stopSpeak(); });
+
+btnSelectAll.addEventListener("click", ()=>{
+  vib(10);
+  selectedTopics = new Set(TOPICS.map(t=>t.key));
+  renderFilter();
+  updateSelectedTopicsLabel();
+  saveProgress();
+});
+btnSelectNone.addEventListener("click", ()=>{
+  vib(10);
+  // Keep at least one: default Bala Kanda
+  selectedTopics = new Set(["Bala Kanda"]);
+  renderFilter();
+  updateSelectedTopicsLabel();
+  saveProgress();
+});
+
+btnStart.addEventListener("click", ()=>{
+  vib(12);
+  buildQuiz();
+  if(quiz.length === 0){
+    setupNote.textContent = (lang==="ta")
+      ? "இந்த தேர்வில் கேள்விகள் இல்லை. வேறு காண்டங்களை தேர்வு செய்யுங்கள்."
+      : "No questions in this filter. Please select other chapters.";
+    return;
+  }
+  showScreen("quiz");
+  renderQuestion();
+  saveProgress();
+});
+
+btnContinue.addEventListener("click", ()=>{
+  vib(12);
+  const saved = loadProgress();
+  if(!saved) return;
+
+  lang = saved.lang || lang;
+  selectedCount = saved.selectedCount ?? selectedCount;
+  shuffleOn = !!saved.shuffleOn;
+  ttsAuto = !!saved.ttsAuto;
+  ttsRate = saved.ttsRate ?? 1.0;
+
+  selectedTopics = new Set(saved.selectedTopics || TOPICS.map(t=>t.key));
+
+  quiz = saved.quiz || [];
+  idx = saved.idx || 0;
+  score = saved.score || 0;
+  answers = saved.answers || {};
+  locked = saved.locked || {};
+  finished = !!saved.finished;
+
+  // Sync UI
+  shuffleToggle.checked = shuffleOn;
+  ttsAutoToggle.checked = ttsAuto;
+  setSpeed(ttsRate);
+  pickedCount.textContent = String(selectedCount);
+  renderFilter();
+  updateSelectedTopicsLabel();
+  applyLang();
+
+  if(finished){
+    showResults();
+  }else{
+    showScreen("quiz");
+    renderQuestion();
+  }
+});
+
+btnDiscard.addEventListener("click", ()=>{
+  vib(12);
+  openModal(
+    (lang==="ta" ? "சேமித்ததை நீக்கலாமா?" : "Discard saved quiz?"),
+    (lang==="ta" ? "சேமித்த முன்னேற்றம் நீக்கப்படும்." : "This will remove your saved progress."),
+    (lang==="ta" ? "நீக்கு" : "Discard"),
+    (lang==="ta" ? "ரத்து" : "Cancel"),
+    ()=>{
+      clearProgress();
+      updateSetupButtons();
+      setupNote.textContent = ui("noneSaved");
+    }
+  );
+});
+
+btnBack.addEventListener("click", ()=>{ vib(10); goBack(); });
+btnNext.addEventListener("click", ()=>{ vib(10); goNext(); });
+
+function exitToHome(){
+  stopSpeak();
+  showScreen("setup");
+  setStatus("Paused");
+  updateSetupButtons();
+  setupNote.textContent = ui("paused");
+}
+
+btnExit.addEventListener("click", ()=>{
+  vib(10);
+  stopSpeak();
+  saveProgress();
+  exitToHome();
+});
+
+
+btnHomeTop.addEventListener("click", ()=>{ vib(10); exitToHome(); });
+
+btnExitTop.addEventListener("click", ()=>{
+  vib(10);
+  stopSpeak();
+  saveProgress();
+  exitToHome();
+});
+
+
+btnListen.addEventListener("click", ()=>{ vib(10); speakCurrent(); });
+btnStop.addEventListener("click", ()=>{ vib(10); stopSpeak(); });
+
+btnReview.addEventListener("click", ()=>{
+  vib(10);
+  renderReview();
+  btnReview.disabled = true;
+});
+
+btnRestart.addEventListener("click", ()=>{
+  vib(12);
+  stopSpeak();
+  clearProgress();
+
+  // reset UI + state cleanly
+  btnReview.disabled = false;
+  reviewWrap.classList.add("hidden");
+  reviewWrap.innerHTML = "";
+
+  // optional: restore defaults
+  selectedCount = 50;
+  shuffleOn = true;
+  shuffleToggle.checked = true;
+
+  // keep your chapter filters as-is (or uncomment next line to reset to all)
+  // selectedTopics = new Set(TOPICS.map(t=>t.key));
+
+  pickedCount.textContent = String(selectedCount);
+  renderFilter();
+  updateSelectedTopicsLabel();
+
+  showScreen("setup");
+  setStatus("Ready");
+  updateSetupButtons();
+  setupNote.textContent = ui("noneSaved");
+});
+
+
+/* Language buttons */
+langEN.addEventListener("click", ()=>{ stopSpeak(); lang="en"; applyLang(); saveProgress(); });
+langTA.addEventListener("click", ()=>{ stopSpeak(); lang="ta"; applyLang(); saveProgress(); });
+
+/* Stop speaking whenever user taps outside / changes screen via modal */
+modalBg.addEventListener("click", (e)=>{ if(e.target === modalBg){ stopSpeak(); closeModal(); }});
+
+/* ----------------------- INIT ----------------------- */
+(function init(){
+  // defaults
+  shuffleOn = true;
+  shuffleToggle.checked = true;
+
+  ttsAuto = false;
+  ttsAutoToggle.checked = false;
+
+  setSpeed(1.0);
+
+  // Build filter UI
+  renderFilter();
+  updateSelectedTopicsLabel();
+
+  // Default count
+  setCount(50);
+
+  // Saved?
+  updateSetupButtons();
+
+  // Apply language
+  applyLang();
+
+  // Note about TTS
+  if(!ttsSupported()){
+    setupNote.textContent = ui("ttsUnavailable");
+  }
+})();
+  
+  <script>
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js");
+}
+</script>
+
+</script>
+</body>
+</html>
