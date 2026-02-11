@@ -469,6 +469,83 @@
     .modal .mTitle{ font-weight: 950; font-size: 15px; }
     .modal .mText{ margin-top: 8px; color: var(--muted); font-size: 13px; line-height:1.6; font-weight: 850; }
     .modal .mBtns{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; justify-content:flex-end; }
+ 
+  /* ===================== PORTRAIT / MOBILE QUIZ FIX ===================== */
+
+/* Make the quiz screen scroll nicely in portrait */
+#screenQuiz .inner{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* In portrait, stack the top area (question + right panel) vertically */
+@media (max-width: 600px){
+  .qTop{
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  /* Make the right-side controls full width */
+  .qTop > div:last-child{
+    width: 100%;
+    align-items: stretch !important;
+    text-align: left !important;
+  }
+
+  /* Progress + pills fit in one row / wrap */
+  .progressWrap{
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .bar{
+    width: 100% !important;     /* progress bar goes full width */
+    max-width: none;
+  }
+
+  /* Options: slightly tighter so all fit */
+  .opt{
+    padding: 10px 10px;
+    border-radius: 16px;
+  }
+  .badge{
+    width: 30px;
+    height: 30px;
+    border-radius: 11px;
+  }
+  .qText{
+    font-size: 16.5px;
+  }
+  .optText{
+    font-size: 14px;
+  }
+
+  /* Keep footer buttons visible + prevent cut-off */
+  .foot{
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    background: linear-gradient(
+      to top,
+      rgba(240,255,247,.98),
+      rgba(240,255,247,.85),
+      rgba(240,255,247,0)
+    );
+    padding-top: 10px;
+    padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Make main content scroll, not the whole page */
+main{
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+  
   </style>
 </head>
 
