@@ -709,6 +709,17 @@
   </div>
 
 <script>
+  const storage = (() => {
+  try {
+    const t = "__t";
+    localStorage.setItem(t, "1");
+    localStorage.removeItem(t);
+    return localStorage;
+  } catch (e) {
+    return { getItem: () => null, setItem: () => {}, removeItem: () => {} };
+  }
+})();
+  
 /* ----------------------- i18n UI ----------------------- */
 const UI = {
   en: {
@@ -795,7 +806,9 @@ const UI = {
   }
 };
 
-let lang = localStorage.getItem("ramayana_lang") || "en";
+let lang = storage.getItem("ramayana_lang") || "en";
+
+
 
 /* ----------------------- TOPICS ----------------------- */
 const TOPICS = [
@@ -1840,7 +1853,7 @@ function updateSelectedTopicsLabel(){
 
 /* ----------------------- LANGUAGE ----------------------- */
 function applyLang(){
-  localStorage.setItem("ramayana_lang", lang);
+  storage.setItem("ramayana_lang", lang);
 
   langEN.classList.toggle("active", lang==="en");
   langTA.classList.toggle("active", lang==="ta");
