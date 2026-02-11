@@ -2151,6 +2151,30 @@ modalBg.addEventListener("click", (e)=>{ if(e.target === modalBg){ stopSpeak(); 
   }
 })();
   
+  // ---- One-time Service Worker reset (open site with ?reset=1) ----
+(async function(){
+  if (!("serviceWorker" in navigator)) return;
+  const params = new URLSearchParams(location.search);
+  if (params.get("reset") !== "1") return;
+
+  try{
+    // Unregister all SW
+    const regs = await navigator.serviceWorker.getRegistrations();
+    await Promise.all(regs.map(r => r.unregister()));
+
+    // Clear caches created by SW
+    if ("caches" in window){
+      const keys = await caches.keys();
+      await Promise.all(keys.map(k => caches.delete(k)));
+    }
+
+    // Reload clean URL
+    location.replace(location.pathname);
+  }catch(e){
+    alert("Reset failed: " + (e.message || e));
+  }
+})();
+  
 </script>
 </body>
 </html>
