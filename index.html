@@ -2175,6 +2175,16 @@ modalBg.addEventListener("click", (e)=>{ if(e.target === modalBg){ stopSpeak(); 
   }
 })();
   
+  // ---- Register SW (safe) ----
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/Ramayana-Quiz/sw.js", { updateViaCache: "none" })
+      .then((reg) => reg.update?.())
+      .catch(() => {});
+  });
+}
+
+
 </script>
 </body>
 </html>
